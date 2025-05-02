@@ -1,41 +1,41 @@
-SRC = main.c \
-	parse.c \
-	init.c \
-	error.c \
-	utils_array.c \
-	utils_free.c
-
-OBJ = $(SRC:.c=.o)
-
 NAME = cub3D
-
-LIBFT = libft/libft.a
-
-MLX_FLAGS = -lmlx -lXext -lX11
-
 CC = cc
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -Iminilibx-linux -g
+MLX_PATH = minilibx-linux/
+MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
-CFLAGS = -Wall -Werror -Wextra -g
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = includes
 
-all: $(NAME)
+SRCS = $(SRC_DIR)/main.c \
+       $(SRC_DIR)/raycasting.c \
+       $(SRC_DIR)/render.c \
+       $(SRC_DIR)/texture.c \
+       $(SRC_DIR)/movement.c \
+       $(SRC_DIR)/utils.c
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-$(OBJ): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -c
+all: make_mlx $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C ./libft
+make_mlx:
+	@make -C $(MLX_PATH)
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-	$(MAKE) -C ./libft clean
+	rm -rf $(OBJ_DIR)
+	make -C $(MLX_PATH) clean
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C ./libft fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re make_mlx
