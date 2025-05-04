@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:02:25 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/04 16:33:56 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 20:43:15 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_free_split(char **array)
 	array = NULL;
 }
 
+// only used if parsing fails
 void	free_all(t_map *map)
 {
 	if (map->texture_no)
@@ -46,6 +47,7 @@ void	free_all(t_map *map)
 	ft_free_split(map->grid);
 }
 
+// used after successful parsing
 void	free_parse(int fd, char *temp)
 {
 	int	gnl_flag;
@@ -55,4 +57,37 @@ void	free_parse(int fd, char *temp)
 		free(temp);
 	close(fd);
 	get_next_line(-1, &gnl_flag);
+}
+
+void	free_map(t_map *map)
+{
+	int	i;
+
+	if (!map || !map->grid)
+		return ;
+	i = 0;
+	while (i < map->height && map->grid[i])
+	{
+		free(map->grid[i]);
+		i++;
+	}
+	free(map->grid);
+	map->grid = NULL;
+}
+
+// Helper function to free texture paths
+void	free_texture_paths(t_game *game)
+{
+	int	i;
+
+	if (!game)
+		return ;
+	i = 0;
+	while (i < 4)
+	{
+		if (game->textures[i].path)
+			free(game->textures[i].path);
+		game->textures[i].path = NULL;
+		i++;
+	}
 }

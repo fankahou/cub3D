@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 17:02:34 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 20:36:24 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ int		check_map(t_map *map, int gnl_flag, int line);
 int		check_identifier(t_map *map, int error);
 //init
 int		init_map(t_map	*map, char *input);
-void	init_bridge(t_game *game);
 //error
 void	print_example(char *temp);
 void	identifier_error(int x, int line);
@@ -195,6 +194,8 @@ void	error_exit(t_game *game, int error_code);
 void	init_game(t_game *game);
 void	init_player_direction(t_game *game, char direction);
 int		render_frame(t_game *game);
+void	free_map(t_map *map);
+void	free_texture_paths(t_game *game);
 
 // Movement
 int		key_press(int keycode, t_game *game);
