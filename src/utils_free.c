@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:02:25 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/04 15:13:30 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 16:33:56 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	ft_free_split(char **array)
 
 void	free_all(t_map *map)
 {
-	if (map->texture_NO)
-		free(map->texture_NO);
-	if (map->texture_SO)
-		free(map->texture_SO);
-	if (map->texture_WE)
-		free(map->texture_WE);
-	if (map->texture_EA)
-		free(map->texture_EA);
+	if (map->texture_no)
+		free(map->texture_no);
+	if (map->texture_so)
+		free(map->texture_so);
+	if (map->texture_we)
+		free(map->texture_we);
+	if (map->texture_ea)
+		free(map->texture_ea);
 	ft_free_split(map->grid);
 }
 
