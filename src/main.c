@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:37:53 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 16:36:07 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 16:50:17 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	printall(t_map *map)
 	ft_printf("--------------------------\n");
 }
 
+// note for Valentino:
+// I added another check in the loop to avoid invalid read
+// as some of the lines could be shorter:
+// while (game->map.grid[y][x] && x < game->map.width)
 void	find_player_pos(t_game *game)
 {
 	int		y;
@@ -39,7 +43,7 @@ void	find_player_pos(t_game *game)
 	while (y < game->map.height)
 	{
 		x = 0;
-		while (x < game->map.width)
+		while (game->map.grid[y][x] && x < game->map.width)
 		{
 			c = game->map.grid[y][x];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
