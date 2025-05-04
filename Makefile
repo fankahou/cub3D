@@ -16,6 +16,7 @@ SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/texture.c \
        $(SRC_DIR)/movement.c \
        $(SRC_DIR)/utils.c \
+	   $(SRC_DIR)/utils_texture.c \
 	$(SRC_DIR)/parse.c \
 	$(SRC_DIR)/parse_line.c \
 	$(SRC_DIR)/parse_check.c \
