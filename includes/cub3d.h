@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 16:22:16 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 17:02:34 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,6 @@ void	error_exit(t_game *game, int error_code);
 void	init_game(t_game *game);
 void	init_player_direction(t_game *game, char direction);
 int		render_frame(t_game *game);
-void	*ft_memset(void *b, int c, size_t len);
 
 // Movement
 int		key_press(int keycode, t_game *game);

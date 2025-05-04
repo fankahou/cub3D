@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:37:53 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 16:50:17 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 17:04:17 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv)
 	ft_memset(&game, 0, sizeof(t_game));
 	
 	if (argc != 2)
-		return (print_example("Error\nPlease enter one argument as the path of <map.cub>\n"), 26);
+		return (print_example("Error\nPlease enter one argument as the path of <map.cub>\n"), 1);
 	if (parse(&game.map, argv[1], 0))
 		return (free_all(&game.map), 1);
 	printall(&game.map); // for debugging
