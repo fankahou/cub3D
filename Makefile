@@ -1,5 +1,7 @@
 SRC = main.c \
 	parse.c \
+	parse_line.c \
+	parse_check.c \
 	init.c \
 	error.c \
 	utils_array.c \

@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:02:25 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/01 19:09:36 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 13:13:24 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_split(char **array)
 	array = NULL;
 }
 
-void free_all(t_map	*map)
+void	free_all(t_map *map)
 {
 	if (map->texture_NO)
 		free(map->texture_NO);
@@ -46,10 +46,10 @@ void free_all(t_map	*map)
 	ft_free_split(map->map);
 }
 
-void free_parse(int fd, char *temp)
+void	free_parse(int fd, char *temp)
 {
-	int gnl_flag;
-	
+	int	gnl_flag;
+
 	gnl_flag = 0;
 	if (temp)
 		free(temp);

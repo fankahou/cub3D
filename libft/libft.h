@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 14:14:15 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/01 17:36:42 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/03 16:46:31 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,20 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 int					ft_printf(const char *input, ...);
+int					ft_dprintf(int fd, const char *input, ...);
 int					ft_putchar(const char arg);
 int					ft_putstr(const char *arg);
 int					ft_putnbr(int n);
 int					ft_putnbruns(unsigned int uns);
 int					ft_hex(unsigned int n, int x);
 int					ft_address(unsigned long n);
+int					ft_dprintf(int fd, const char *input, ...);
+int					ft_dputchar(int fd, const char arg);
+int					ft_dputstr(int fd, const char *arg);
+int					ft_dputnbr(int fd, int n);
+int					ft_dputnbruns(int fd, unsigned int uns);
+int					ft_dhex(int fd, unsigned int n, int x);
+int					ft_daddress(int fd, unsigned long n);
 char				*get_next_line(int fd, int *flag);
 size_t				ft_digit(long nb);
 

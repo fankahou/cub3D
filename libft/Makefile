@@ -47,6 +47,9 @@ SRC = ft_isalpha.c \
 		ft_printf.c \
 		ft_put.c \
 		ft_hex.c \
+		ft_dprintf.c \
+		ft_dput.c \
+		ft_dhex.c \
 		get_next_line.c
 
 OBJ = $(SRC:.c=.o)
