@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:00:37 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/04 13:23:35 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/04 14:57:58 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,17 @@ typedef struct s_map
 
 //for debugging, to be deleted
 void	print_array(char **temp);
-
 //parse
 int		parse(t_map	*map, char *input, int x);
 int		parse_line(t_map *map, char *temp, int line);
 int		check_map(t_map *map, int gnl_flag, int line);
 int		check_identifier(t_map *map, int error);
-
 //init
 int		init_map(t_map	*map, char *input);
-
 //error
 void	print_example(char *temp);
 void	identifier_error(int x, int line);
 void	colour_error(int i, int x, char **temp, int line);
-
 //utils
 char	**add_array(char **input, char *entry, int y);
 char	**copy_map(char **map);
