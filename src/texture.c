@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:10 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 21:26:26 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/05 18:29:51 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	load_texture(t_game *game, int tex_num)
 {
 	if (access(game->textures[tex_num].path, F_OK) != 0)
 	{
-		ft_dprintf(2, "Error: Texture file '%s' does not exist\n",
+		ft_dprintf(2, "Error\nTexture file '%s' does not exist\n",
 			game->textures[tex_num].path);
 		error_exit(game, ERR_TEX_LOAD);
 	}
@@ -95,7 +95,7 @@ void	load_texture(t_game *game, int tex_num)
 			&game->textures[tex_num].img.height);
 	if (!game->textures[tex_num].img.img)
 	{
-		ft_dprintf(2, "Error: Failed to load texture '%s'\n",
+		ft_dprintf(2, "Error\nFailed to load texture '%s'\n",
 			game->textures[tex_num].path);
 		error_exit(game, ERR_TEX_LOAD);
 	}

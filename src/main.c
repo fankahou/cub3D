@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:37:53 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 20:59:05 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/05 18:30:34 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_dprintf(2, "Error: Failed to initialize mlx or create window\n");
+		ft_dprintf(2, "Error\nFailed to initialize mlx or create window\n");
 		exit_game(&game);
 		return (1);
 	}
