@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 20:36:24 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/05 17:44:42 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <mlx.h>
+# include <sys/time.h>
 //# include "../minilibx-linux/mlx.h"
 
 // Constants for window dimensions
@@ -142,6 +143,9 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	int			move[6]; // to make it smoother?
+	int			frame;
+	int			second;
 	t_map		map;
 	t_player	player;
 	t_img		img;
@@ -199,6 +203,7 @@ void	free_texture_paths(t_game *game);
 
 // Movement
 int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
 void	move_forward(t_game *game);
 void	move_backward(t_game *game);
 void	move_left(t_game *game);

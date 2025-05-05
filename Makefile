@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 #-I$(INC_DIR) -Iminilibx-linux -g
 #MLX_PATH = minilibx-linux/
 MLX_FLAGS = -lmlx -lXext -lX11 -lm #-L$(MLX_PATH) 
@@ -12,9 +12,12 @@ INC_DIR = includes
 
 SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/raycasting.c \
+	   $(SRC_DIR)/raycasting_calculate.c \
        $(SRC_DIR)/render.c \
+	   $(SRC_DIR)/render_draw.c \
        $(SRC_DIR)/texture.c \
        $(SRC_DIR)/movement.c \
+	   $(SRC_DIR)/movement_wasd.c \
        $(SRC_DIR)/utils.c \
 	   $(SRC_DIR)/utils_texture.c \
 	$(SRC_DIR)/parse.c \

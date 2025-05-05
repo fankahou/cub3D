@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:02:25 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/04 20:42:30 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/05 16:42:38 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	init_game(t_game *game)
 	game->ceiling.color = create_rgb(game->ceiling.r, game->ceiling.g,
 			game->ceiling.b);
 	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	mlx_hook(game->win, 17, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, loop_hook, game);
 }
