@@ -26,7 +26,8 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/init.c \
 	$(SRC_DIR)/error.c \
 	$(SRC_DIR)/utils_array.c \
-	$(SRC_DIR)/utils_free.c
+	$(SRC_DIR)/utils_free.c \
+		$(SRC_DIR)/render_bonus.c \
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -56,4 +57,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re make_mlx
+.PHONY: all clean fclean re #make_mlx

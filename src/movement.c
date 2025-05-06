@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:37:58 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/05 17:26:17 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/06 10:09:40 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,33 @@ int	key_press(int keycode, t_game *game)
 	if (keycode == KEY_ESC)
 		exit_game(game);
 	else if (keycode == KEY_W)
-		game->move[0] = 1;
+		game->move[W] = 1;
 	else if (keycode == KEY_S)
-		game->move[1] = 1;
+		game->move[S] = 1;
 	else if (keycode == KEY_A)
-		game->move[2] = 1;
+		game->move[A] = 1;
 	else if (keycode == KEY_D)
-		game->move[3] = 1;
+		game->move[D] = 1;
 	else if (keycode == KEY_LEFT)
-		game->move[4] = 1;
+		game->move[LEFT] = 1;
 	else if (keycode == KEY_RIGHT)
-		game->move[5] = 1;
+		game->move[RIGHT] = 1;
 	return (0);
 }
 
 int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
-		game->move[0] = 0;
+		game->move[W] = 0;
 	else if (keycode == KEY_S)
-		game->move[1] = 0;
+		game->move[S] = 0;
 	else if (keycode == KEY_A)
-		game->move[2] = 0;
+		game->move[A] = 0;
 	else if (keycode == KEY_D)
-		game->move[3] = 0;
+		game->move[D] = 0;
 	else if (keycode == KEY_LEFT)
-		game->move[4] = 0;
+		game->move[LEFT] = 0;
 	else if (keycode == KEY_RIGHT)
-		game->move[5] = 0;
+		game->move[RIGHT] = 0;
 	return (0);
 }

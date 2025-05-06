@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/05 17:44:42 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/06 13:55:14 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define WIN_HEIGHT 768
 # define TEX_WIDTH 256
 # define TEX_HEIGHT 256
+# define MAP_SCALE 5
 
 // Error codes
 # define ERR_MLX_INIT 1
@@ -42,6 +43,14 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+
+// Movements
+# define W 0
+# define S 1
+# define A 2
+# define D 3
+# define LEFT 4
+# define RIGHT 5
 
 // Linux key codes
 # define KEY_ESC 65307
@@ -210,5 +219,8 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
+
+// bonus
+void	draw_bonus(t_game *game);
 
 #endif
