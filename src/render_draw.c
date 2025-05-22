@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:06 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/05 17:34:32 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 15:49:27 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_floor(t_game *game, int x, int draw_end)
 	int	y;
 
 	y = draw_end;
-	while (y < WIN_HEIGHT)
+	while (y + 1 < WIN_HEIGHT)
 	{
 		my_mlx_pixel_put(&game->img, x, y, game->floor.color);
 		y++;

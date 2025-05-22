@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 #-I$(INC_DIR) -Iminilibx-linux -g
 #MLX_PATH = minilibx-linux/
 MLX_FLAGS = -lmlx -lXext -lX11 -lm #-L$(MLX_PATH) 
@@ -26,8 +26,7 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/init.c \
 	$(SRC_DIR)/error.c \
 	$(SRC_DIR)/utils_array.c \
-	$(SRC_DIR)/utils_free.c \
-		$(SRC_DIR)/render_bonus.c \
+	$(SRC_DIR)/utils_free.c
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:10 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/05 18:29:51 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 16:20:27 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	allocate_texture_data(t_game *game)
 {
 	int	i;
 
-	game->texture_data = (int **)malloc(sizeof(int *) * 4);
+	game->texture_data = (int **)malloc(sizeof(int *) * 5);
 	if (!game->texture_data)
 		error_exit(game, ERR_MEMORY);
 	i = 0;
@@ -28,6 +28,7 @@ void	allocate_texture_data(t_game *game)
 			error_exit(game, ERR_MEMORY);
 		i++;
 	}
+	game->texture_data[i] = NULL;
 }
 
 // Use nearest neighbor scaling to sample from the source texture
@@ -62,12 +63,6 @@ void	scaling_texture(t_game *game, int tex_num, int x, int y)
 
 	scale_x = (double)game->textures[tex_num].img.width / TEX_WIDTH;
 	scale_y = (double)game->textures[tex_num].img.height / TEX_HEIGHT;
-	if (scale_x != 1.0 || scale_y != 1.0)
-	{
-		ft_printf("Info: Scaling texture '%s' from %dx%d to %dx%d\n",
-			game->textures[tex_num].path, game->textures[tex_num].img.width,
-			game->textures[tex_num].img.height, TEX_WIDTH, TEX_HEIGHT);
-	}
 	while (y < TEX_HEIGHT)
 	{
 		x = 0;
@@ -84,12 +79,6 @@ void	scaling_texture(t_game *game, int tex_num, int x, int y)
 
 void	load_texture(t_game *game, int tex_num)
 {
-	if (access(game->textures[tex_num].path, F_OK) != 0)
-	{
-		ft_dprintf(2, "Error\nTexture file '%s' does not exist\n",
-			game->textures[tex_num].path);
-		error_exit(game, ERR_TEX_LOAD);
-	}
 	game->textures[tex_num].img.img = mlx_xpm_file_to_image(game->mlx,
 			game->textures[tex_num].path, &game->textures[tex_num].img.width,
 			&game->textures[tex_num].img.height);

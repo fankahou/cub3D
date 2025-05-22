@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:06 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/06 13:54:39 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 15:52:30 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	render_frame(t_game *game)
 	if (!game->img.addr)
 		error_exit(game, ERR_MEMORY);
 	cast_rays(game);
-	draw_bonus(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	mlx_destroy_image(game->mlx, game->img.img);
 	game->img.img = NULL;

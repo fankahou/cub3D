@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:10 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 20:53:41 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 16:05:27 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_textures(t_game *game)
 	if (!game->texture_data)
 		return ;
 	i = 0;
-	while (i < 4)
+	while (game->texture_data && i < 4)
 	{
 		if (game->texture_data[i])
 			free(game->texture_data[i]);

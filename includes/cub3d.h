@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/06 13:55:14 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 15:52:41 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,5 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
-
-// bonus
-void	draw_bonus(t_game *game);
 
 #endif

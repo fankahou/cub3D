@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:37:53 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/05 18:30:34 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 16:15:38 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 	init_game(&game);
 	if (game.mlx && game.win)
 	{
+		rotate_left(&game);
 		load_textures(&game);
 		render_frame(&game);
 		mlx_loop(game.mlx);
