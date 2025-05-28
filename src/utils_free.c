@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:02:25 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/04 20:43:15 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/21 15:30:39 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ void	free_all(t_map *map)
 		free(map->texture_we);
 	if (map->texture_ea)
 		free(map->texture_ea);
+	if (map->texture_coin)
+		free(map->texture_coin);
+	if (map->texture_door)
+		free(map->texture_door);
+	if (map->texture_p1)
+		free(map->texture_p1);
+	if (map->texture_p2)
+		free(map->texture_p2);
 	ft_free_split(map->grid);
 }
 
@@ -88,6 +96,14 @@ void	free_texture_paths(t_game *game)
 		if (game->textures[i].path)
 			free(game->textures[i].path);
 		game->textures[i].path = NULL;
+		i++;
+	}
+	i = 0;
+	while (i < 10)
+	{
+		if (game->textures_bonus[i].path)
+			free(game->textures_bonus[i].path);
+		game->textures_bonus[i].path = NULL;
 		i++;
 	}
 }

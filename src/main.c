@@ -3,38 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vagarcia <vagarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:37:53 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/22 16:15:38 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/22 16:15:54 by vagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-// for debugging
-/* void	printall(t_map *map)
-{
-	ft_printf("map is valid!\n\n");
-	ft_printf("map->texture_NO = %s\n", map->texture_no);
-	ft_printf("map->texture_SO = %s\n", map->texture_so);
-	ft_printf("map->texture_WE = %s\n", map->texture_we);
-	ft_printf("map->texture_EA = %s\n\n", map->texture_ea);
-	ft_printf("F = %d, %d, %d\n", map->floor[0], map->floor[1], map->floor[2]);
-	ft_printf("C = %d, %d, %d\n\n", map->ceiling[0], map->ceiling[1],
-		map->ceiling[2]);
-	print_array(map->grid);
-	ft_printf("\nmap->height = %d\n", map->height);
-	ft_printf("map->width = %d\n", map->width);
-	ft_printf("--------------------------\n");
-} */
 
 void	free_textures_paths(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (game->textures[i].path && i < 4)
 	{
 		if (game->textures[i].path)
 			free(game->textures[i].path);
@@ -44,6 +27,7 @@ void	free_textures_paths(t_game *game)
 
 // Zero out the entire game struct to avoid uninitialized memory
 // Use	printall(&game.map); for debug
+// rotate_left(&game.player[0]); to avoid crashing
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -56,8 +40,10 @@ int	main(int argc, char **argv)
 	init_game(&game);
 	if (game.mlx && game.win)
 	{
-		rotate_left(&game);
+		rotate_left(&game.player[0]);
 		load_textures(&game);
+		if (BONUS)
+			setup_sprites(&game);
 		render_frame(&game);
 		mlx_loop(game.mlx);
 	}

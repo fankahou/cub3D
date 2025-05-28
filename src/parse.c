@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:02:25 by kfan              #+#    #+#             */
-/*   Updated: 2025/05/04 16:20:05 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/28 12:43:46 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ int	check_identifier(t_map *map, int error)
 
 static int	check_char(t_map *map, char *new, int x, int y)
 {
-	if (new[y] != '0' && new[y] != '1' && new[y] != ' ' && new[y] != 'N'
-		&& new[y] != 'S' && new[y] != 'E' && new[y] != 'W')
-		return (ft_dprintf(2, "Error\nline %d: invalid character \"%c\"\n",
-				x + 1, new[y]), free(new), 1);
+	if (!BONUS && new[y] != '0' && new[y] != '1' && new[y] != ' '
+		&& new[y] != 'N' && new[y] != 'S' && new[y] != 'E' && new[y] != 'W')
+		return (ft_dprintf(2, "Error\nline %d: invalid character \"%c\"\n", x
+				+ 1, new[y]), free(new), 1);
+	if (BONUS == 2 && new[y] == 'F')
+		return (ft_dprintf(2, "Error\nline %d: invalid character \"%c\"\n", x
+				+ 1, new[y]), free(new), 1);
 	if (y + 1 > map->width)
 		map->width = y + 1;
 	map->identifier[6] = 1;
@@ -98,7 +101,8 @@ int	parse(t_map *map, char *input, int x)
 		x++;
 	}
 	free_parse(fd, NULL);
-	if (check_identifier(map, 1) || check_map(map, gnl_flag, x))
+	if (check_identifier(map, 1) || check_map(map, gnl_flag, x)
+		|| check_players(map))
 		return (1);
 	return (0);
 }

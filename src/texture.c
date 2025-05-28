@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:10 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/22 16:20:27 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/27 14:19:11 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,6 @@ void	load_textures(t_game *game)
 		load_texture(game, i);
 		i++;
 	}
+	if (BONUS)
+		load_textures_bonus(game);
 }

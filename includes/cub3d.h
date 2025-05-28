@@ -6,12 +6,16 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/22 15:52:41 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/28 12:10:48 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# ifndef BONUS
+#  define BONUS 0
+# endif
 
 # include <math.h>
 # include <stdio.h>
@@ -23,6 +27,7 @@
 # include <string.h>
 # include <mlx.h>
 # include <sys/time.h>
+# include <time.h>
 //# include "../minilibx-linux/mlx.h"
 
 // Constants for window dimensions
@@ -44,6 +49,12 @@
 # define EAST 2
 # define WEST 3
 
+// Direction constants
+# define COIN 0
+# define DOOR 1
+# define P1 2
+# define P2 3
+
 // Movements
 # define W 0
 # define S 1
@@ -51,6 +62,8 @@
 # define D 3
 # define LEFT 4
 # define RIGHT 5
+# define UP 12
+# define DOWN 13
 
 // Linux key codes
 # define KEY_ESC 65307
@@ -58,12 +71,50 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_Q 113
+# define KEY_E 101
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_ZERO 65438
+# define KEY_ONE 65436
+# define KEY_TWO 65433
+# define KEY_THREE 65435
+# define KEY_FIVE 65437
+# define KEY_C 99
+# define KEY_SPACE 32
 
 // Movement speed and rotation speed
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.03
+# define SPRITE_COIN 0
+# define SPRITE_PLAYER1 1
+# define SPRITE_PLAYER2 2
+//# define SPRITE_DEAD 3
+# define SPRITE_ENEMY 3
+# define SPRITE_GUN 4
+# define SPRITE_DOOR 5
+# define MAX_SPRITES 100
+# define SPRITE_ENEMY_FIAT 6
+# define MAX_SPRITE_TYPES 10
+
+// Structure for sprite drawing calculations
+typedef struct s_sprite_draw
+{
+	double	sprite_x;
+	double	sprite_y;
+	double	inv_det;
+	double	transform_x;
+	double	transform_y;
+	int		sprite_screen_x;
+	int		sprite_height;
+	int		sprite_width;
+	int		draw_start_x;
+	int		draw_start_y;
+	int		draw_end_x;
+	int		draw_end_y;
+}	t_sprite_draw;
 
 typedef struct s_img
 {
@@ -90,11 +141,17 @@ typedef struct s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	int		index; // index for sprites
+	int		coin;
+	int		dead;
+	int		starting_x;
+	int		starting_y;
 }	t_player;
 
 typedef struct s_ray
 {
 	double	camera_x;
+	int		y; // look up and down
 	double	ray_dir_x;
 	double	ray_dir_y;
 	int		map_x;
@@ -113,6 +170,8 @@ typedef struct s_ray
 	int		draw_end;
 	int		tex_x;
 	double	wall_x;
+	int		bonus;
+	int		bonus_cor[2];
 }	t_ray;
 
 typedef struct s_color
@@ -136,6 +195,10 @@ typedef struct s_map
 	char	*texture_so;
 	char	*texture_we;
 	char	*texture_ea;
+	char	*texture_door;
+	char	*texture_coin;
+	char	*texture_p1;
+	char	*texture_p2;
 	int		floor[3]; //rgb colours
 	int		ceiling[3];
 	int		identifier[7];
@@ -146,29 +209,75 @@ typedef struct s_map
 	int		height;
 	int		flag;
 	// to check enclosed map init as flag > 1 not enclosed, flag == 0 valid
+	int		players;
+	// for bonus, total number of players on map
 }			t_map;
+
+// Forward declaration
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	int		texture;
+	double	distance; // Distance from player (for sorting)
+	int		visible; // Whether the sprite is visible
+}	t_sprite;
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	int			move[6]; // to make it smoother?
-	int			frame;
-	int			second;
-	t_map		map;
-	t_player	player;
-	t_img		img;
-	t_texture	textures[4];
-	t_color		floor;
-	t_color		ceiling;
-	int			**texture_data;
+	void					*mlx;
+	void					*win;
+	int						move[16]; // to make it smoother?
+	int						action[4];
+	int						frame;
+	int						second;
+	int						x; // previous x for mouse movement
+	int						y; // previous y for mouse movement
+	int						camera_y[2]; // look up and down
+	t_map					map;
+	t_player				player[2];
+	t_img					img;
+	t_texture				textures[4];
+	// Increased to hold gun and other sprites
+	t_texture				textures_bonus[10];
+	t_color					floor;
+	t_color					ceiling;
+	int						**texture_data;
+	int						**texture_data_bonus;
+	int						coin_count;
+
+	// Sprite-related data
+	struct s_sprite			*sprites;
+	struct s_sprite_draw	*draw;
+	int						sprite_count;
+	int						*sprite_order;
+	double					*sprite_distance;
+	double					*zbuffer;
 }	t_game;
 
+// Sprites
+void	free_sprites(t_game *game);
+void	setup_sprites(t_game *game);
+void	init_sprites(t_game *game);
+void	add_sprite(t_game *game, double x, double y, int texture);
+void	sort_sprites(t_game *game, int active_player);
+void	cast_sprites(t_game *game, int player_index);
+void	update_sprites(t_game *game);
+void	draw_sprite(t_game *game, int sprite_index, int player_index);
+void	calc_sprite_transform(t_game *game,
+			t_sprite_draw *draw, int sprite_index, int player_index);
+void	calc_sprite_dimensions(t_game *game,
+			t_sprite_draw *draw, int sprite_index);
+void	calc_sprite_boundaries(t_sprite_draw *draw,
+			t_game *game, int player_index);
+void	render_sprite_stripe(t_game *game, int stripe, int sprite_index, \
+		int player_index);
 //parse
 int		parse(t_map	*map, char *input, int x);
 int		parse_line(t_map *map, char *temp, int line);
 int		check_map(t_map *map, int gnl_flag, int line);
 int		check_identifier(t_map *map, int error);
+int		can_pass(char c);
 //init
 int		init_map(t_map	*map, char *input);
 //error
@@ -184,10 +293,11 @@ void	free_parse(int fd, char *temp);
 void	print_array(char **temp);
 
 // Raycasting functions
-void	cast_rays(t_game *game);
-void	init_ray(t_ray *ray, t_player *player, int x);
+void	cast_rays(t_game *game, int i);
+void	init_ray(t_ray *ray, int x, t_game *game, int i);
 void	calculate_step_and_side_dist(t_ray *ray, t_player *player);
 void	perform_dda(t_ray *ray, char **map, int map_height, int map_width);
+int		perform_dda1(t_ray *ray, int map_height, int map_width);
 void	calculate_wall_distance(t_ray *ray, t_player *player);
 void	calculate_wall_height(t_ray *ray);
 void	draw_vertical_line(t_game *game, t_ray *ray, int x);
@@ -205,19 +315,50 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		exit_game(t_game *game);
 void	error_exit(t_game *game, int error_code);
 void	init_game(t_game *game);
-void	init_player_direction(t_game *game, char direction);
+void	init_player_direction(t_player *player, char direction);
 int		render_frame(t_game *game);
 void	free_map(t_map *map);
 void	free_texture_paths(t_game *game);
+void	free_textures_bonus(t_game *game);
 
 // Movement
+int		key_release_bonus_2p(int keycode, t_game *game);
+int		key_press_bonus_2p(int keycode, t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
-void	move_forward(t_game *game);
-void	move_backward(t_game *game);
-void	move_left(t_game *game);
-void	move_right(t_game *game);
-void	rotate_left(t_game *game);
-void	rotate_right(t_game *game);
+void	move_forward(t_game *game, t_player *player);
+void	move_backward(t_game *game, t_player *player);
+void	move_left(t_game *game, t_player *player);
+void	move_right(t_game *game, t_player *player);
+void	rotate_left(t_player *player);
+void	rotate_right(t_player *player);
+void	update_move(t_game *game);
+
+// bonus
+void	draw_bonus(t_game *game, int i);
+int		key_press_bonus_2p(int keycode, t_game *game);
+int		key_release_bonus_2p(int keycode, t_game *game);
+void	bonus_hooks(t_game *game);
+int		check_players(t_map *map);
+void	check_bonus(t_map *map, int y, int x, char **temp);
+void	get_coin(t_game *game, int i);
+//void	draw_coin(t_game *game);
+void	load_textures_bonus(t_game *game);
+void	door(t_game *game, int i);
+void	check_hit(t_ray *ray, char **map);
+void	cast_rays_bonus(t_game *game, int i, int x);
+void	calculate_obj_distance(t_ray *ray, t_player *player);
+void	calculate_obj_height(t_ray *ray);
+void	calculate_obj_x(t_ray *ray, t_player *player);
+void	fire(t_game *game, int i);
+void	perform_dda_bonus(t_ray *ray,
+			char **map, int map_height, int map_width);
+void	render_dead(t_game *game, int i);
+void	draw_coin_info(t_game *game, int i);
+void	draw_range(t_game *game, int i, char *dst);
+void	draw_map(t_game *game, int x, int y, int pixel);
+
+// Weapon/player arm
+void	draw_player_weapon_bobbing(t_game *game);
 
 #endif

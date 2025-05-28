@@ -3,55 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vagarcia <vagarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:06 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/22 15:52:30 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/21 19:26:59 by vagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	create_rgb(int r, int g, int b)
+void	update_map(t_game *game, t_player *player1, t_player *player2)
 {
-	return (r << 16 | g << 8 | b);
+	game->map.grid[(int)game->player[0].pos_y][(int)game->player[0].pos_x] \
+		= 'F';
+	game->map.grid[(int)game->player[1].pos_y][(int)game->player[1].pos_x] \
+		= 'D';
+	if ((int)game->player[0].pos_x != (int)player1->pos_x
+		|| (int)game->player[0].pos_y != (int)player1->pos_y)
+		game->map.grid[(int)player1->pos_y][(int)player1->pos_x] = '0';
+	if ((int)game->player[1].pos_x != (int)player2->pos_x
+		|| (int)game->player[1].pos_y != (int)player2->pos_y)
+		game->map.grid[(int)player2->pos_y][(int)player2->pos_x] = '0';
 }
 
-// to make game smoother
-// instead of in keycode event
-// can move and turn at the same time
-void	update_move(t_game *game)
+void	save_pos(t_game *game, t_player *player1, t_player *player2)
 {
-	if (game->move[W] == 1)
-		move_forward(game);
-	else if (game->move[S] == 1)
-		move_backward(game);
-	if (game->move[A] == 1)
-		move_left(game);
-	else if (game->move[D] == 1)
-		move_right(game);
-	if (game->move[LEFT] == 1)
-		rotate_left(game);
-	else if (game->move[RIGHT] == 1)
-		rotate_right(game);
-}
-
-// later we can print framerate on the screen for debugging?
-int	render_frame(t_game *game)
-{
+	player1->pos_x = game->player[0].pos_x;
+	player1->pos_y = game->player[0].pos_y;
+	player2->pos_x = game->player[1].pos_x;
+	player2->pos_y = game->player[1].pos_y;
 	update_move(game);
-	if (game->win == NULL)
-		return (1);
+}
+
+// splitted part of render_frame to meet norminette, still works
+static int	render_player2(t_game *game)
+{
 	game->img.img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!game->img.img)
-		error_exit(game, ERR_MEMORY);
+		return (1);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
 			&game->img.line_length, &game->img.endian);
 	if (!game->img.addr)
-		error_exit(game, ERR_MEMORY);
-	cast_rays(game);
+		return (1);
+	cast_rays(game, 1);
+	draw_bonus(game, 1);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, WIN_WIDTH, 0);
+	mlx_destroy_image(game->mlx, game->img.img);
+	game->img.img = NULL;
+	return (0);
+}
+
+static int	render_player1(t_game *game)
+{
+	game->img.img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!game->img.img)
+		return (1);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
+			&game->img.line_length, &game->img.endian);
+	if (!game->img.addr)
+		return (1);
+	cast_rays(game, 0);
+	if (BONUS)
+		draw_bonus(game, 0);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	mlx_destroy_image(game->mlx, game->img.img);
 	game->img.img = NULL;
+	return (0);
+}
+
+int	render_frame(t_game *game)
+{
+	t_player	player1;
+	t_player	player2;
+
+	save_pos(game, &player1, &player2);
+	if (BONUS)
+		get_coin(game, 0);
+	if (BONUS == 2)
+	{
+		get_coin(game, 1);
+		update_map(game, &player1, &player2);
+		update_sprites(game);
+	}
+	if (game->win == NULL)
+		return (1);
+	if (render_player1(game))
+		error_exit(game, ERR_MEMORY);
+	if (BONUS != 2)
+		return (0);
+	if (render_player2(game))
+		error_exit(game, ERR_MEMORY);
 	return (0);
 }

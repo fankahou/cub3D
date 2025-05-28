@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vagarcia <vagarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:14 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/04 20:39:23 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/28 10:33:09 by vagarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ int	exit_game(t_game *game)
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
 	free_textures(game);
+	if (BONUS)
+		free_textures_bonus(game);
+	if (BONUS && game->sprites)
+		free_sprites(game);
 	free_map(&game->map);
 	if (game->win)
 	{
@@ -57,40 +61,48 @@ int	exit_game(t_game *game)
 	return (0);
 }
 
-static void	init_player_direction1(t_game *game, char direction)
+static void	init_player_direction1(t_player *player, char direction)
 {
 	if (direction == 'E')
 	{
-		game->player.dir_x = 1;
-		game->player.dir_y = 0;
-		game->player.plane_x = 0;
-		game->player.plane_y = 0.66;
+		player->dir_x = 1;
+		player->dir_y = 0;
+		player->plane_x = 0;
+		player->plane_y = 0.66;
 	}
 	else if (direction == 'W')
 	{
-		game->player.dir_x = -1;
-		game->player.dir_y = 0;
-		game->player.plane_x = 0;
-		game->player.plane_y = -0.66;
+		player->dir_x = -1;
+		player->dir_y = 0;
+		player->plane_x = 0;
+		player->plane_y = -0.66;
 	}
 }
 
-void	init_player_direction(t_game *game, char direction)
+void	init_player_direction(t_player *player, char direction)
 {
 	if (direction == 'N')
 	{
-		game->player.dir_x = 0;
-		game->player.dir_y = -1;
-		game->player.plane_x = 0.66;
-		game->player.plane_y = 0;
+		player->dir_x = 0;
+		player->dir_y = -1;
+		player->plane_x = 0.66;
+		player->plane_y = 0;
 	}
 	else if (direction == 'S')
 	{
-		game->player.dir_x = 0;
-		game->player.dir_y = 1;
-		game->player.plane_x = -0.66;
-		game->player.plane_y = 0;
+		player->dir_x = 0;
+		player->dir_y = 1;
+		player->plane_x = -0.66;
+		player->plane_y = 0;
 	}
 	else if (direction == 'E' || direction == 'W')
-		init_player_direction1(game, direction);
+		init_player_direction1(player, direction);
 }
+
+#if BONUS == 0
+// Create RGB color value from individual components
+int	create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+#endif
