@@ -6,7 +6,7 @@
 /*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:22 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/28 12:10:48 by kfan             ###   ########.fr       */
+/*   Updated: 2025/05/28 20:39:35 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,8 @@ typedef struct s_sprite
 	int		texture;
 	double	distance; // Distance from player (for sorting)
 	int		visible; // Whether the sprite is visible
+	int		direction_x; // sprite moving direction
+	int		direction_y; // sprite moving direction
 }	t_sprite;
 
 typedef struct s_game
@@ -357,6 +359,8 @@ void	render_dead(t_game *game, int i);
 void	draw_coin_info(t_game *game, int i);
 void	draw_range(t_game *game, int i, char *dst);
 void	draw_map(t_game *game, int x, int y, int pixel);
+void	move_enemy_x(t_game *game, int i);
+void	move_enemy_y(t_game *game, int i);
 
 // Weapon/player arm
 void	draw_player_weapon_bobbing(t_game *game);

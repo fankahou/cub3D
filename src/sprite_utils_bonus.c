@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite_utils.c                                     :+:      :+:    :+:   */
+/*   sprite_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vagarcia <vagarcia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:30:55 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/22 13:32:52 by vagarcia         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:46:04 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	add_sprite(t_game *game, double x, double y, int texture)
 	game->sprites[game->sprite_count].y = y;
 	game->sprites[game->sprite_count].texture = texture;
 	game->sprites[game->sprite_count].visible = 1;
+	game->sprites[game->sprite_count].direction_x = 0;
+	game->sprites[game->sprite_count].direction_y = 0;
 	game->sprite_count++;
 }
 

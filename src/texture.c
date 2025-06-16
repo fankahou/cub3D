@@ -58,11 +58,6 @@ void	scaling_pixel(t_game *game, int tex_num, int x, int y)
 // if the texture size doesn't match expected dimensions
 void	scaling_texture(t_game *game, int tex_num, int x, int y)
 {
-	double	scale_x;
-	double	scale_y;
-
-	scale_x = (double)game->textures[tex_num].img.width / TEX_WIDTH;
-	scale_y = (double)game->textures[tex_num].img.height / TEX_HEIGHT;
 	while (y < TEX_HEIGHT)
 	{
 		x = 0;

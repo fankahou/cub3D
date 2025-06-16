@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_dead_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vagarcia <vagarcia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:38:06 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/28 16:24:56 by vagarcia         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:42:49 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	render_dead(t_game *game, int i)
 {
 	if (BONUS == 1 && game->map.grid[(int)game->player[0].pos_y] \
 		[(int)game->player[0].pos_x] == 'F')
-		game->player[i].dead = 1;
+	{
+		game->player[0].dead = 1;
+		game->player[0].coin = 0;
+	}
 	if (game->player[i].dead == 1)
 	{
 		game->camera_y[i] -= 10;

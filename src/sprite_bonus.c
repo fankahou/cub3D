@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.c                                           :+:      :+:    :+:   */
+/*   sprite_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vagarcia <vagarcia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kfan <kfan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 19:31:07 by vagarcia          #+#    #+#             */
-/*   Updated: 2025/05/22 13:44:05 by vagarcia         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:56:24 by kfan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,6 @@ static void	update_bonus(t_game *game, int bonus_type)
 		game->sprites[game->player[1].index].x = game->player[1].pos_x;
 		game->sprites[game->player[1].index].y = game->player[1].pos_y;
 	}
-	else if (bonus_type == 1)
-	{
-		game->sprites[game->player[0].index].x = game->player[0].pos_x;
-		game->sprites[game->player[0].index].y = game->player[0].pos_y;
-		game->sprites[0].visible = 1;
-	}
 }
 
 void	update_sprites(t_game *game)
@@ -130,6 +124,10 @@ void	update_sprites(t_game *game)
 			else
 				game->sprites[i].visible = 0;
 		}
+		if (BONUS == 1 && game->sprites[i].texture == SPRITE_ENEMY)
+			move_enemy_x(game, i);
+		if (BONUS == 1 && game->sprites[i].texture == SPRITE_ENEMY_FIAT)
+			move_enemy_y(game, i);
 		i++;
 	}
 	update_bonus(game, BONUS);

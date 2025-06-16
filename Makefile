@@ -48,7 +48,8 @@ BONUS_ONLY_SRCS = $(SRC_DIR)/key_actions_bonus.c \
                   $(SRC_DIR)/weapon_bonus.c \
                   $(SRC_DIR)/render_dead_bonus.c \
                   $(SRC_DIR)/sprite_utils_bonus.c \
-                  $(SRC_DIR)/sprite_coke_bonus.c
+                  $(SRC_DIR)/sprite_coke_bonus.c \
+                  $(SRC_DIR)/sprite_move_enemy_bonus.c
 
 BONUS_SRCS = $(SRCS) $(BONUS_ONLY_SRCS)
 
