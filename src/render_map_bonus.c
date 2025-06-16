@@ -186,8 +186,7 @@ void	draw_map(t_game *game, int x, int y, int pixel)
 				break ;
 			if (game->map.grid[(y / pixel)][(x / pixel)] == '1')
 				*(unsigned int *)dst = 0;
-			else if (game->map.grid[(y / pixel)][(x / pixel)] == '0' || \
-				BONUS == 2)
+			else if (game->map.grid[(y / pixel)][(x / pixel)] == '0')
 				*(unsigned int *)dst = create_rgb(255, 255, 255);
 			draw_map_items(game, x, y, pixel);
 			x++;
