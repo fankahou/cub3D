@@ -6,7 +6,7 @@ This project is inspired by the world-famous Wolfenstein 3D game, which is
 considered the first FPS ever created.
 
 Note:
-This is the final version of our project working together, which requires minilibx preinstalled.
+This is the final version of our project working together, which requires minilibx in Linux maschine preinstalled.
 For improved and integrated minilibx version made by Ka Hou, please visit:
 
 Linux: https://github.com/fankahou/crossy_roadster
